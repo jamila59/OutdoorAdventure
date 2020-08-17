@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "ry/aXlV7Kj8xDSI/7xJq4veoDJAdrbiG+KSFvF//9hmsELqzfpePuWNhxGI76OFF5aNpEE9EoBL9K6kiJkyqcQ==",
+  "success": true,
+  "projectFilePath": "/Users/Jama/Desktop/Hike/Hike.csproj",
+  "expectedPackageFiles": [
+    "/Users/Jama/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
