@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace Hike.Models
 {
     public class TrailMemoryRepository : ITrailRepository
@@ -22,6 +23,5 @@ namespace Hike.Models
             var trailDetails = _trails.FirstOrDefault(x => x.Id == id);
             return trailDetails;
         }
-
     }
 }
