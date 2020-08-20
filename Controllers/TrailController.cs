@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using Hike.Models;
 using System.Net.Http.Headers;
+using Hike.Services;
 
 namespace Hike.Controllers
 {
@@ -14,11 +15,16 @@ namespace Hike.Controllers
     {
         // private TrailMemoryRepository _repository;
 
-
         // public TrailController(TrailMemoryRepository repository)
         // {
         //     _repository = repository;
         // }
+
+         private readonly ICosmosDbService _cosmosDbService;
+        public TrailController(ICosmosDbService cosmosDbService)
+        {
+            _cosmosDbService = cosmosDbService;
+        }
 
         [HttpGet("/trails")]
         public async Task<IActionResult> Index()
@@ -52,35 +58,6 @@ namespace Hike.Controllers
             }
         }
 
-        [HttpGet("/trails/{id}")]
-        public async Task<IActionResult> Index(int id)
-        {
-
-            using (HttpClient client = new HttpClient())
-            {
-                
-                client.BaseAddress = new Uri("https://www.hikingproject.com");
-                client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-
-                var response =
-                    await client.GetAsync($"/data/get-trails-by-id?ids={id}&key=200238177-24a146be40fa02014108db565b54b2ed");
-
-                response.EnsureSuccessStatusCode();
-                var stringresult = await response.Content.ReadAsStringAsync();
-                JObject result = JObject.Parse(stringresult);
-                //only need if you want to get a subsection of data
-                IList<JToken> rawTrailsList = result["trails"].Children().ToList();
-                List<Trail> trails = new List<Trail>();
-                foreach (JToken item in rawTrailsList)
-                {
-                    Trail singleTrail = item.ToObject<Trail>();
-                    trails.Add(singleTrail);
-                }
-                //save to memory repository
-                // _repository.AddTrails(trails);
-                return View(trails);
-            }
-        }
+        
     }
 }
